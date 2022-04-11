@@ -26,12 +26,21 @@ const App = () => {
           console.log("We have the ethereum object", ethereum);
       }
 
+      let chainId = await ethereum.request({ method: 'eth_chainId' });
+      console.log("Connected to chain " + chainId);
+
+      const rinkebyChainId = "0x4"; 
+      if (chainId !== rinkebyChainId) {
+	      alert("You are not connected to the Rinkeby Test Network!");
+      }
+
       const accounts = await ethereum.request({ method: 'eth_accounts' });
 
       if (accounts.length !== 0) {
           const account = accounts[0];
           console.log("Found an authorized account:", account);
 					setCurrentAccount(account)
+          
           
           // Setup listener! This is for the case where a user comes to our site
           // and ALREADY had their wallet connected + authorized.
